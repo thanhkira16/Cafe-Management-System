@@ -3,23 +3,24 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package cafemanagementsystem;
-    
+
 import javax.swing.JOptionPane;
 import dao.UserDao;
 import java.awt.geom.RoundRectangle2D;
 import model.User;
-       
-       
-    
+import controller.EmailSender;
+
 /**
  *
  * @author Admin
  */
 public class ForgotPassword extends javax.swing.JFrame {
+
     private String dbAnswer = null;
     private String email = null;
     private String emailPattern = "^[a-zA-Z0-9]+@[a-zA-Z0-9]+[.]+[a-zA-z0-9]+$";
-    
+    private String emailCode;
+
     /**
      * Creates new form ForgotPassword
      */
@@ -29,40 +30,43 @@ public class ForgotPassword extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         btnUpsate.setEnabled(false);
         btnSearch.setEnabled(false);
-        txtSeQue.setEditable(false);
-        
+        txtCode.setEditable(false);
+                    txtNewPassword.setVisible(false);
+            txtNewPassWordAgain.setVisible(false);
+            lblNewPassword.setVisible(false);
+            lblNewPasswordAgain.setVisible(false);
     }
-    
-    public void clear (){
+
+    public void clear() {
         btnUpsate.setEnabled(false);
         btnSearch.setEnabled(false);
         txtEmail.setEditable(true);
         txtEmail.setText("");
-        txtSeQue.setText("");
-        txtAnswer.setText("");
+        txtCode.setText("");
+        txtNewPassWordAgain.setText("");
         txtNewPassword.setText("");
     }
-    
-    public void validateEmail(){
+
+    public void validateEmail() {
         email = txtEmail.getText();
-        if(email.matches(emailPattern))
+        if (email.matches(emailPattern)) {
             btnSearch.setEnabled(true);
-        else
+        } else {
             btnSearch.setEnabled(false);
-        
+        }
+
     }
-    
-    public void validateFields(){
-       String password = txtNewPassword.getText();
-       String answer = txtAnswer.getText();
-       String securityQuestion = txtSeQue.getText();
-       if(!password.equals("") && !answer.equals("") && !securityQuestion.equals("")){
-           btnUpsate.setEnabled(true);
-       }else
-           btnUpsate.setEnabled(false);
+
+    public void validateFields() {
+        String password = txtNewPassword.getText();
+        String answer = txtNewPassWordAgain.getText();
+        String securityQuestion = txtCode.getText();
+        if (!password.equals("") && !answer.equals("") && !securityQuestion.equals("")) {
+            btnUpsate.setEnabled(true);
+        } else {
+            btnUpsate.setEnabled(false);
+        }
     }
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -77,11 +81,11 @@ public class ForgotPassword extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        lblNewPassword = new javax.swing.JLabel();
+        lblNewPasswordAgain = new javax.swing.JLabel();
         txtEmail = new javax.swing.JTextField();
-        txtSeQue = new javax.swing.JTextField();
-        txtAnswer = new javax.swing.JTextField();
+        txtCode = new javax.swing.JTextField();
+        txtNewPassWordAgain = new javax.swing.JTextField();
         btnSearch = new javax.swing.JButton();
         btnUpsate = new javax.swing.JButton();
         btnExit = new javax.swing.JButton();
@@ -108,18 +112,18 @@ public class ForgotPassword extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Your security question");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, -1, -1));
+        jLabel3.setText("Mã xác nhận");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, -1, -1));
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Your Answer");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, -1, -1));
+        lblNewPassword.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblNewPassword.setForeground(new java.awt.Color(255, 255, 255));
+        lblNewPassword.setText("Nhập mật khẩu");
+        getContentPane().add(lblNewPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, -1, -1));
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("Enter New Password");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, -1, -1));
+        lblNewPasswordAgain.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblNewPasswordAgain.setForeground(new java.awt.Color(255, 255, 255));
+        lblNewPasswordAgain.setText("Enter New Password");
+        getContentPane().add(lblNewPasswordAgain, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, -1, -1));
 
         txtEmail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -133,24 +137,24 @@ public class ForgotPassword extends javax.swing.JFrame {
         });
         getContentPane().add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 50, 230, -1));
 
-        txtSeQue.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtCode.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtSeQueKeyReleased(evt);
+                txtCodeKeyReleased(evt);
             }
         });
-        getContentPane().add(txtSeQue, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 90, 290, 30));
+        getContentPane().add(txtCode, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 100, 290, 30));
 
-        txtAnswer.addActionListener(new java.awt.event.ActionListener() {
+        txtNewPassWordAgain.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtAnswerActionPerformed(evt);
+                txtNewPassWordAgainActionPerformed(evt);
             }
         });
-        txtAnswer.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtNewPassWordAgain.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtAnswerKeyReleased(evt);
+                txtNewPassWordAgainKeyReleased(evt);
             }
         });
-        getContentPane().add(txtAnswer, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 140, 290, 30));
+        getContentPane().add(txtNewPassWordAgain, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 190, 290, 30));
 
         btnSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/search.png"))); // NOI18N
         btnSearch.setText("Search");
@@ -201,7 +205,7 @@ public class ForgotPassword extends javax.swing.JFrame {
                 txtNewPasswordKeyReleased(evt);
             }
         });
-        getContentPane().add(txtNewPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 190, 290, 30));
+        getContentPane().add(txtNewPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 140, 290, 30));
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/login.jpg"))); // NOI18N
         getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -214,42 +218,38 @@ public class ForgotPassword extends javax.swing.JFrame {
         validateEmail();
     }//GEN-LAST:event_txtEmailKeyReleased
 
-    private void txtSeQueKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSeQueKeyReleased
-        // TODO add your handling code here:
-        validateFields();
-    }//GEN-LAST:event_txtSeQueKeyReleased
-
-    private void txtAnswerKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAnswerKeyReleased
-        // TODO add your handling code here:
-         validateFields();
-    }//GEN-LAST:event_txtAnswerKeyReleased
-
     private void txtNewPasswordKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNewPasswordKeyReleased
         // TODO add your handling code here:
-         validateFields();
+        validateFields();
     }//GEN-LAST:event_txtNewPasswordKeyReleased
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
-         int a = JOptionPane.showConfirmDialog(null, "Do you want to close Application?", "Selecct",  JOptionPane.YES_NO_OPTION);
-        if(a==0){
+        int a = JOptionPane.showConfirmDialog(null, "Do you want to close Application?", "Selecct", JOptionPane.YES_NO_OPTION);
+        if (a == 0) {
             System.exit(0);
         }
     }//GEN-LAST:event_btnExitActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         // TODO add your handling code here:
-          email = txtEmail.getText();
-       User user = null;
-       user = UserDao.getSecurityQuestion(email);
-       if(user==null){
-           JOptionPane.showMessageDialog(null, "<html><b style=\"color:red\">Incorect Email</b></html>", "Message",JOptionPane.ERROR_MESSAGE);
-       }else{
-           btnSearch.setEnabled(false);
-           txtEmail.setEditable(false);
-           dbAnswer = user.getAnswer();
-           txtSeQue.setText(user.getSecurityQuestion());
-           validateFields();
-       }
+        email = txtEmail.getText();
+        User user = null;
+        user = UserDao.getSecurityQuestion(email);
+        if (user == null) {
+            JOptionPane.showMessageDialog(null, "<html><b style=\"color:red\">Incorect Email</b></html>", "Message", JOptionPane.ERROR_MESSAGE);
+        } else {
+            btnSearch.setEnabled(false);
+            txtEmail.setEditable(false);
+            txtCode.setEditable(true);
+            txtNewPassword.setVisible(true);
+            txtNewPassWordAgain.setVisible(true);
+            lblNewPassword.setVisible(true);
+            lblNewPasswordAgain.setVisible(true);
+
+            validateFields();
+
+            emailCode = EmailSender.sendEmail(user.getEmail(), user.getName());
+        }
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
@@ -257,16 +257,23 @@ public class ForgotPassword extends javax.swing.JFrame {
     }//GEN-LAST:event_txtEmailActionPerformed
 
     private void btnUpsateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpsateActionPerformed
-      String answer = txtAnswer.getText();
-      String newPassword = txtNewPassword.getText();
-      if(answer.equals(dbAnswer)){
-          UserDao.update(email, newPassword);
-          clear();
-      }else{
-          JOptionPane.showMessageDialog(null, "<html><b style=\"color:red\">Incorect Answer</b></html>", "Message",JOptionPane.ERROR_MESSAGE);
-      }
-            
-           
+        String userCode = txtCode.getText();
+        String newPassword = txtNewPassword.getText();
+        String newWordAgain = txtNewPassWordAgain.getText();
+        if (!newPassword.equals(newWordAgain)) {
+            JOptionPane.showMessageDialog(null, "<html><b style=\"color:red\">Incorect Paaaword</b></html>", "Message", JOptionPane.ERROR_MESSAGE);
+        } else {
+
+            if (userCode.equals(emailCode)) {
+                UserDao.update(email, newPassword);
+                clear();
+            } else {
+                JOptionPane.showMessageDialog(null, "<html><b style=\"color:red\">Incorect Code</b></html>", "Message", JOptionPane.ERROR_MESSAGE);
+            }
+
+        }
+
+
     }//GEN-LAST:event_btnUpsateActionPerformed
 
     private void btnSignupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignupActionPerformed
@@ -281,9 +288,19 @@ public class ForgotPassword extends javax.swing.JFrame {
         new Login().setVisible(true);
     }//GEN-LAST:event_btnLoginActionPerformed
 
-    private void txtAnswerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAnswerActionPerformed
+    private void txtNewPassWordAgainKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNewPassWordAgainKeyReleased
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtAnswerActionPerformed
+        validateFields();
+    }//GEN-LAST:event_txtNewPassWordAgainKeyReleased
+
+    private void txtNewPassWordAgainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNewPassWordAgainActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNewPassWordAgainActionPerformed
+
+    private void txtCodeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodeKeyReleased
+        // TODO add your handling code here:
+        validateFields();
+    }//GEN-LAST:event_txtCodeKeyReleased
 
     /**
      * @param args the command line arguments
@@ -311,6 +328,7 @@ public class ForgotPassword extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(ForgotPassword.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -329,13 +347,13 @@ public class ForgotPassword extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JTextField txtAnswer;
+    private javax.swing.JLabel lblNewPassword;
+    private javax.swing.JLabel lblNewPasswordAgain;
+    private javax.swing.JTextField txtCode;
     private javax.swing.JTextField txtEmail;
+    private javax.swing.JTextField txtNewPassWordAgain;
     private javax.swing.JPasswordField txtNewPassword;
-    private javax.swing.JTextField txtSeQue;
     // End of variables declaration//GEN-END:variables
 }

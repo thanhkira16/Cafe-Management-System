@@ -26,7 +26,6 @@ public class CategoryDao {
             ResultSet rs = DbOperation.getData("select *from category");
             while(rs.next()){
                 Category ca = new Category();
-                ca.setId(rs.getString("id"));
                 ca.setName(rs.getString("name"));
                 arr.add(ca);
             }

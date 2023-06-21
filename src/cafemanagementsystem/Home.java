@@ -55,7 +55,8 @@ public class Home extends javax.swing.JFrame {
         btnAdmin = new javax.swing.JButton();
         btnExit2 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
+        btnChat = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/hmoe1.png"))); // NOI18N
 
@@ -134,8 +135,18 @@ public class Home extends javax.swing.JFrame {
         });
         getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 0, 110, 20));
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/menu.jpg"))); // NOI18N
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 560, -1));
+        btnChat.setBackground(new java.awt.Color(0, 255, 204));
+        btnChat.setText("Chat");
+        btnChat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnChatActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnChat, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 270, 80, 40));
+
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/menu.jpg"))); // NOI18N
+        jLabel4.setText("jLabel4");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 560, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -174,6 +185,10 @@ public class Home extends javax.swing.JFrame {
         setVisible(false);
         new Login().setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnChatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChatActionPerformed
+        new Chat().setVisible(true);
+    }//GEN-LAST:event_btnChatActionPerformed
     
     /**
      * @param args the command line arguments
@@ -182,6 +197,7 @@ public class Home extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdmin;
+    private javax.swing.JButton btnChat;
     private javax.swing.JButton btnExit2;
     private javax.swing.JButton btnLogout;
     private javax.swing.JButton btnPlaceOrder;
@@ -189,6 +205,6 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     // End of variables declaration//GEN-END:variables
 }

@@ -21,7 +21,6 @@ public class DbOperation {
             }
         }catch(Exception e){
             JOptionPane.showConfirmDialog(null,e,  "Message", JOptionPane.ERROR_MESSAGE);
-            
         }
     }
     
