@@ -19,6 +19,20 @@ public class User {
      private String answer;
      private String status;
 
+    public User( String name, String email, String mobileNumber, String address, String password, String securityQuestion, String answer, String status) {
+        this.name = name;
+        this.email = email;
+        this.mobileNumber = mobileNumber;
+        this.address = address;
+        this.password = password;
+        this.securityQuestion = securityQuestion;
+        this.answer = answer;
+        this.status = status;
+    }
+
+    public User() {
+    }
+
     
     public int getId() {
         return id;
