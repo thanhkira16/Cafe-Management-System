@@ -14,9 +14,7 @@ Create a menu page that lists all the items available in the coffee shop.
 Add options for managing menu items (add, edit, delete).
 Categorize menu items (Tea, freeze, milk, others).
 Define prices for each item.
-
-
-
+![alt text](https://scontent.fdad1-4.fna.fbcdn.net/v/t39.30808-6/391759800_299922049492796_6935731080310777744_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=5f2048&_nc_ohc=IdPBQugBkPMAX_WBDJO&_nc_ht=scontent.fdad1-4.fna&oh=00_AfAmmb7axZ-0g1TGXIQBHeu-riRqNQuGWis-YPhBVNZZmA&oe=65327532)
 
 
 	
@@ -25,26 +23,15 @@ Set up an ordering page that allows users to place orders.
 Allow customers to customize their orders (milk, sugar, size, etc.).
 Provide an order tracking system.
 Provide an generate bill system
+![alt text](https://scontent.fdad1-4.fna.fbcdn.net/v/t39.30808-6/391680837_299922032826131_7075534341168903268_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=5f2048&_nc_ohc=_UMMLqH7p-IAX8dytUm&_nc_ht=scontent.fdad1-4.fna&oh=00_AfA_FG2g1K43VhZCGleDgpvB-DhBlEys2Ooq0HuL30FGUg&oe=65324FA3)
 
 
-
-
-
-Customer Management:
-Keep track of customer details (name, phone number, email).
-Store customer preferences and order history.
-Allow manager filler by date or change order by id
-
-
-
-
-
-
-
+![alt text](https://scontent.fdad1-4.fna.fbcdn.net/v/t39.30808-6/391678892_299922022826132_6252292039584342659_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=5f2048&_nc_ohc=ibbu73lzss0AX_VooNu&_nc_ht=scontent.fdad1-4.fna&oh=00_AfC13Ejpwq0N3LGk2HF7uKMRd6VRUda_XFYzIUBxLVG_kw&oe=6531F9FC)
 
 
 
 Setting account
 Allow change password
 Allow change security question
+![alt text](https://scontent.fdad2-1.fna.fbcdn.net/v/t39.30808-6/358143531_299921932826141_9155795309889079984_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=5f2048&_nc_ohc=4kDh8DP_4sAAX8Taqu8&_nc_ht=scontent.fdad2-1.fna&oh=00_AfBZZ9I7ubLz4u3txq_OEcDc8YTp9DWMfDlGM1PQwqCYzQ&oe=6531AAF6)
 
