@@ -5,7 +5,8 @@ Set up a login page to authenticate users.
 Set up a  sign up account page and a forgot password page
 Define user roles and permissions (admin, managermanager)
 
-[![alt text](https://scontent.fdad1-4.fna.fbcdn.net/v/t39.30808-6/391750168_299922736159394_5662006445987347249_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=5f2048&_nc_ohc=rgqeE3QdELsAX-gIXqy&_nc_oc=AQmXa39KblT8SbgTzySU7zsWR1-VspTHbd_pcE8JSAUre3eo3MDrm4U3tEZAw7NjYap1_W2uM--X9kXhe_rspgb6&_nc_ht=scontent.fdad1-4.fna&oh=00_AfA90a2n-H3K0sLlwzYpZ7P7_EA5uHrz-DkmddupIutE7Q
+![alt text](https://scontent.fdad1-4.fna.fbcdn.net/v/t39.30808-6/391750168_299922736159394_5662006445987347249_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=5f2048&_nc_ohc=rgqeE3QdELsAX-gIXqy&_nc_oc=AQmXa39KblT8SbgTzySU7zsWR1-VspTHbd_pcE8JSAUre3eo3MDrm4U3tEZAw7NjYap1_W2uM--X9kXhe_rspgb6&_nc_ht=scontent.fdad1-4.fna&oh=00_AfA90a2n-H3K0sLlwzYpZ7P7_EA5uHrz-DkmddupIutE7Q&oe=6532CB42)
+
 
 
 Menu Management:
