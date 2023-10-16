@@ -5,7 +5,7 @@ Set up a login page to authenticate users.
 Set up a  sign up account page and a forgot password page
 Define user roles and permissions (admin, managermanager)
 
-![alt text](https://drive.google.com/uc?id=1icOhhq_ZdE9xv1U9eMHFEUBzm0K8GxDA)
+![alt text]([https://drive.google.com/uc?id=1icOhhq_ZdE9xv1U9eMHFEUBzm0K8GxDA](https://drive.google.com/file/d/1icOhhq_ZdE9xv1U9eMHFEUBzm0K8GxDA/view?usp=sharing))
 
 
 Menu Management:
