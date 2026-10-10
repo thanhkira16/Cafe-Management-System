@@ -78,6 +78,7 @@ FROM (
 WHERE NOT EXISTS (SELECT 1 FROM product existing WHERE existing.name = sample.name AND existing.category = sample.category);
 
 -- Example completed orders; the legacy bill table stores invoice totals, not individual line items.
+-- Seed emails are unique so this block can be imported repeatedly without duplicating demo bills.
 INSERT INTO bill (name, email, mobileNumber, date, total, createdBy)
 SELECT sample.name, sample.email, sample.mobileNumber, sample.date, sample.total, sample.createdBy
 FROM (
@@ -86,7 +87,19 @@ FROM (
   SELECT 'Le Thao Vy', 'thaovy@example.com', '0901000003', '07-10-2026', '142000', 'admin@cafe.local' UNION ALL
   SELECT 'Pham Quoc Huy', 'quochuy@example.com', '0901000004', '08-10-2026', '96000', 'admin@cafe.local' UNION ALL
   SELECT 'Vo Ngoc Han', 'ngochan@example.com', '0901000005', '09-10-2026', '184000', 'admin@cafe.local' UNION ALL
-  SELECT 'Dang Thanh Tung', 'thanhtung@example.com', '0901000006', '10-10-2026', '118000', 'admin@cafe.local'
+  SELECT 'Dang Thanh Tung', 'thanhtung@example.com', '0901000006', '10-10-2026', '118000', 'admin@cafe.local' UNION ALL
+  SELECT 'Bui Bao Chau', 'baochau.demo@example.com', '0902000001', '05-10-2026', '95000', 'admin@cafe.local' UNION ALL
+  SELECT 'Nguyen Hoang Long', 'hoanglong.demo@example.com', '0902000002', '06-10-2026', '135000', 'admin@cafe.local' UNION ALL
+  SELECT 'Tran My Linh', 'mylinh.demo@example.com', '0902000003', '06-10-2026', '78000', 'admin@cafe.local' UNION ALL
+  SELECT 'Le Tuan Kiet', 'tuankiet.demo@example.com', '0902000004', '07-10-2026', '166000', 'admin@cafe.local' UNION ALL
+  SELECT 'Pham Khanh An', 'khanhan.demo@example.com', '0902000005', '07-10-2026', '112000', 'admin@cafe.local' UNION ALL
+  SELECT 'Do Minh Quan', 'minhquan.demo@example.com', '0902000006', '08-10-2026', '205000', 'admin@cafe.local' UNION ALL
+  SELECT 'Vo Thu Ha', 'thuha.demo@example.com', '0902000007', '08-10-2026', '89000', 'admin@cafe.local' UNION ALL
+  SELECT 'Nguyen Duc Minh', 'ducminh.demo@example.com', '0902000008', '09-10-2026', '156000', 'admin@cafe.local' UNION ALL
+  SELECT 'Dang Phuong Thao', 'phuongthao.demo@example.com', '0902000009', '09-10-2026', '125000', 'admin@cafe.local' UNION ALL
+  SELECT 'Hoang Gia Huy', 'giahuy.demo@example.com', '0902000010', '10-10-2026', '99000', 'admin@cafe.local' UNION ALL
+  SELECT 'Mai Thanh Tam', 'thanhtam.demo@example.com', '0902000011', '10-10-2026', '143000', 'admin@cafe.local' UNION ALL
+  SELECT 'Luu Duc Thinh', 'ducthinh.demo@example.com', '0902000012', '10-10-2026', '67000', 'admin@cafe.local'
 ) AS sample
 WHERE NOT EXISTS (
   SELECT 1 FROM bill existing

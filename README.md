@@ -11,20 +11,11 @@
 
 ## Cài đặt cơ sở dữ liệu và dữ liệu mẫu
 
-Từ thư mục dự án, chạy trong PowerShell (đổi `root` nếu tài khoản MySQL của bạn khác):
+Xem hướng dẫn đầy đủ tại [`DATABASE_SETUP.md`](DATABASE_SETUP.md). File SQL để tạo schema và import dữ liệu mẫu nằm tại [`database/cafe_management.sql`](database/cafe_management.sql).
 
-```powershell
- Get-Content .\database\cafe_management.sql | mysql -u root -p
-```
+Tóm tắt: mở PowerShell ở thư mục dự án và chạy `Get-Content .\database\cafe_management.sql | mysql -u root -p`, hoặc mở file SQL bằng MySQL Workbench và thực thi. Script tạo database `cms` cùng 5 danh mục, 25 món uống và 18 hóa đơn mẫu.
 
-Script tạo database `cms`, các bảng cần thiết và dữ liệu mẫu gồm 5 danh mục, 25 món uống và 6 hóa đơn mẫu. Chạy lại script không nhân đôi danh mục/sản phẩm mẫu, hóa đơn mẫu hoặc tài khoản demo.
-
-Tài khoản demo:
-
-- Email: `admin@cafe.local`
-- Mật khẩu: `admin123`
-
-Ứng dụng cũ lưu mật khẩu bằng MD5; tài khoản mẫu dùng cùng định dạng để tương thích.
+Tài khoản demo: `admin@cafe.local` / `admin123`.
 
 ## Chạy trong VS Code
 
@@ -38,7 +29,7 @@ Hoặc chạy từ terminal:
 mvn clean compile exec:java
 ```
 
-Trong CMD hoặc PowerShell, chạy `run.cmd` (PowerShell dùng ` .\run.cmd`) ở thư mục dự án. File ưu tiên JDK 21 ở `C:\Program Files\Java\jdk-21`, kể cả khi `JAVA_HOME` đang trỏ tới phiên bản cũ, sau đó gọi Maven.
+Trong CMD hoặc PowerShell, chạy `run.cmd` ở thư mục dự án (PowerShell dùng `.\run.cmd`). File ưu tiên JDK 21 ở `C:\Program Files\Java\jdk-21`, kể cả khi `JAVA_HOME` đang trỏ tới phiên bản cũ, sau đó gọi Maven.
 
 ## Cấu hình kết nối MySQL
 

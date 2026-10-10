@@ -24,6 +24,32 @@ public class NewProduct extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setShape(new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), 30, 30));
         btnSave.setEnabled(false);
+        applyResponsiveLayout();
+    }
+
+    private void applyResponsiveLayout() {
+        javax.swing.JPanel page = ResponsivePage.root("Add a product", "Add a drink to a category in your cafe menu.");
+        javax.swing.JPanel form = ResponsivePage.card(new java.awt.BorderLayout(0, 16));
+        form.setPreferredSize(new java.awt.Dimension(620, 340));
+        form.add(ResponsivePage.section("Product information"), java.awt.BorderLayout.NORTH);
+        javax.swing.JPanel fields = new javax.swing.JPanel(new java.awt.GridLayout(3, 1, 0, 12));
+        fields.setOpaque(false);
+        fields.add(ResponsivePage.field("Product name", txtName));
+        fields.add(ResponsivePage.field("Category", txtCategory));
+        fields.add(ResponsivePage.field("Price (VND)", txtPrice));
+        javax.swing.JPanel actions = new javax.swing.JPanel(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 8, 0));
+        actions.setOpaque(false);
+        UiTheme.secondaryButton(jButton1);
+        UiTheme.primaryButton(btnSave);
+        actions.add(jButton1);
+        actions.add(btnSave);
+        form.add(fields, java.awt.BorderLayout.CENTER);
+        form.add(actions, java.awt.BorderLayout.SOUTH);
+        javax.swing.JPanel centered = new javax.swing.JPanel(new java.awt.GridBagLayout());
+        centered.setOpaque(false);
+        centered.add(form);
+        page.add(centered, java.awt.BorderLayout.CENTER);
+        ResponsivePage.install(this, page);
     }
     
     public void validateFields(){

@@ -8,6 +8,8 @@ import java.awt.Container;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.GraphicsEnvironment;
+import java.awt.Rectangle;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.event.WindowAdapter;
@@ -89,8 +91,13 @@ final class AppShell {
 
     private void buildWindow() {
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        window.setMinimumSize(new Dimension(1120, 720));
-        window.setSize(1480, 920);
+        Rectangle desktop = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();
+        int initialWidth = Math.min(1280, desktop.width);
+        int initialHeight = Math.min(800, desktop.height);
+        int minWidth = Math.min(960, initialWidth);
+        int minHeight = Math.min(620, initialHeight);
+        window.setMinimumSize(new Dimension(minWidth, minHeight));
+        window.setSize(initialWidth, initialHeight);
         window.setLocationRelativeTo(null);
         window.getContentPane().setLayout(new BorderLayout());
         window.getContentPane().setBackground(UiTheme.CREAM);
@@ -188,13 +195,20 @@ final class AppShell {
 
     private void install(JFrame page, String key) {
         Container content = page.getContentPane();
-        if (!(page instanceof Home)) polish(content);
+        if (!(page instanceof Home)
+                && !Boolean.TRUE.equals(page.getRootPane().getClientProperty("cafe.responsivePage"))) {
+            polish(content);
+        }
         JPanel holder = new JPanel(new BorderLayout());
         holder.setBackground(UiTheme.CREAM);
         holder.add(content, BorderLayout.CENTER);
-        JScrollPane scroll = new JScrollPane(holder);
+        JScrollPane scroll = new JScrollPane(holder,
+                JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scroll.setBorder(BorderFactory.createEmptyBorder());
         scroll.getViewport().setBackground(UiTheme.CREAM);
+        scroll.getVerticalScrollBar().setUnitIncrement(18);
+        scroll.getHorizontalScrollBar().setUnitIncrement(18);
+        scroll.setWheelScrollingEnabled(true);
         Component previous = pageComponents.put(key, scroll);
         if (previous != null) pages.remove(previous);
         pages.add(scroll, key);

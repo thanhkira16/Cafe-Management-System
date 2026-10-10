@@ -25,6 +25,42 @@ public class ManageCategory extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setShape(new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), 30, 30));
         btnSave.setEnabled(false);
+        applyResponsiveLayout();
+    }
+
+    private void applyResponsiveLayout() {
+        javax.swing.JPanel page = ResponsivePage.root("Categories", "Keep menu categories clear and easy to browse.");
+        javax.swing.JPanel addCard = ResponsivePage.card(new java.awt.BorderLayout(0, 14));
+        addCard.add(ResponsivePage.section("Add category"), java.awt.BorderLayout.NORTH);
+        javax.swing.JPanel addBody = new javax.swing.JPanel(new java.awt.BorderLayout(0, 12));
+        addBody.setOpaque(false);
+        addBody.add(ResponsivePage.field("Category name", txtAddCategory), java.awt.BorderLayout.NORTH);
+        javax.swing.JPanel actions = new javax.swing.JPanel(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 8, 0));
+        actions.setOpaque(false);
+        UiTheme.primaryButton(btnSave);
+        UiTheme.secondaryButton(jButton3);
+        actions.add(btnSave);
+        actions.add(jButton3);
+        addBody.add(actions, java.awt.BorderLayout.CENTER);
+        addCard.add(addBody, java.awt.BorderLayout.CENTER);
+
+        javax.swing.JPanel listCard = ResponsivePage.card(new java.awt.BorderLayout(0, 12));
+        listCard.add(ResponsivePage.section("Menu categories"), java.awt.BorderLayout.NORTH);
+        javax.swing.JPanel list = new javax.swing.JPanel(new java.awt.BorderLayout(0, 8));
+        list.setOpaque(false);
+        list.add(ResponsivePage.table(jTable1), java.awt.BorderLayout.CENTER);
+        jLabel6.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 12));
+        jLabel6.setForeground(UiTheme.MUTED);
+        list.add(jLabel6, java.awt.BorderLayout.SOUTH);
+        listCard.add(list, java.awt.BorderLayout.CENTER);
+
+        javax.swing.JPanel body = new javax.swing.JPanel(new java.awt.BorderLayout(14, 0));
+        body.setOpaque(false);
+        addCard.setPreferredSize(new java.awt.Dimension(310, 250));
+        body.add(addCard, java.awt.BorderLayout.WEST);
+        body.add(listCard, java.awt.BorderLayout.CENTER);
+        page.add(body, java.awt.BorderLayout.CENTER);
+        ResponsivePage.install(this, page);
     }
     
     public void validateFields(){

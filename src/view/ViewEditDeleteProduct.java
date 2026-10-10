@@ -23,7 +23,45 @@ public class ViewEditDeleteProduct extends javax.swing.JFrame {
         initComponents();
         btnUpdate.setEnabled(false);
         btnDelete.setEnabled(false);
+        applyResponsiveLayout();
                 
+    }
+
+    private void applyResponsiveLayout() {
+        javax.swing.JPanel page = ResponsivePage.root("Products", "Review the menu and update product details.");
+        javax.swing.JPanel editor = ResponsivePage.card(new java.awt.BorderLayout(0, 14));
+        editor.setPreferredSize(new java.awt.Dimension(340, 360));
+        editor.add(ResponsivePage.section("Product details"), java.awt.BorderLayout.NORTH);
+        javax.swing.JPanel fields = new javax.swing.JPanel(new java.awt.GridLayout(3, 1, 0, 12));
+        fields.setOpaque(false);
+        fields.add(ResponsivePage.field("Product name", txtName));
+        fields.add(ResponsivePage.field("Category", txtCategory));
+        fields.add(ResponsivePage.field("Price (VND)", txtPrice));
+        javax.swing.JPanel actions = new javax.swing.JPanel(new java.awt.GridLayout(1, 2, 10, 0));
+        actions.setOpaque(false);
+        UiTheme.primaryButton(btnUpdate);
+        UiTheme.secondaryButton(btnDelete);
+        actions.add(btnUpdate);
+        actions.add(btnDelete);
+        javax.swing.JPanel editorBody = new javax.swing.JPanel(new java.awt.BorderLayout(0, 14));
+        editorBody.setOpaque(false);
+        javax.swing.JPanel productId = new javax.swing.JPanel(new java.awt.BorderLayout());
+        productId.setOpaque(false);
+        productId.add(ResponsivePage.fieldLabel("PRODUCT ID"), java.awt.BorderLayout.WEST);
+        lblID.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 14));
+        lblID.setForeground(UiTheme.COFFEE);
+        productId.add(lblID, java.awt.BorderLayout.EAST);
+        editorBody.add(productId, java.awt.BorderLayout.NORTH);
+        editorBody.add(fields, java.awt.BorderLayout.CENTER);
+        editorBody.add(actions, java.awt.BorderLayout.SOUTH);
+        editor.add(editorBody, java.awt.BorderLayout.CENTER);
+
+        javax.swing.JPanel body = new javax.swing.JPanel(new java.awt.BorderLayout(14, 0));
+        body.setOpaque(false);
+        body.add(editor, java.awt.BorderLayout.WEST);
+        body.add(ResponsivePage.table(jTable1), java.awt.BorderLayout.CENTER);
+        page.add(body, java.awt.BorderLayout.CENTER);
+        ResponsivePage.install(this, page);
     }
     
     public void validateFields(){

@@ -31,6 +31,20 @@ public class ViewBillOrderPlacedDetails extends javax.swing.JFrame {
         Date date = new Date();
         String todayDate = dFormat.format(date);
         txtDate.setText(todayDate);
+        applyResponsiveLayout();
+    }
+
+    private void applyResponsiveLayout() {
+        javax.swing.JPanel page = ResponsivePage.root("Orders & bills", "Search completed orders by date and open a bill to review it.");
+        javax.swing.JPanel filters = ResponsivePage.card(new java.awt.GridLayout(1, 2, 14, 0));
+        filters.add(ResponsivePage.field("Filter by date", txtDate));
+        filters.add(ResponsivePage.field("Sort by bill ID", jComboBox1));
+        javax.swing.JPanel content = new javax.swing.JPanel(new java.awt.BorderLayout(0, 12));
+        content.setOpaque(false);
+        content.add(filters, java.awt.BorderLayout.NORTH);
+        content.add(ResponsivePage.table(jTable1), java.awt.BorderLayout.CENTER);
+        page.add(content, java.awt.BorderLayout.CENTER);
+        ResponsivePage.install(this, page);
     }
     
     public void tableDetails(){

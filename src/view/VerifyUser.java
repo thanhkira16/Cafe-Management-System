@@ -27,6 +27,20 @@ public class VerifyUser extends javax.swing.JFrame {
      */
     public VerifyUser() {
         initComponents();
+        applyResponsiveLayout();
+    }
+
+    private void applyResponsiveLayout() {
+        javax.swing.JPanel page = ResponsivePage.root("Staff access", "Search staff accounts and click a row to change its access status.");
+        javax.swing.JPanel searchCard = ResponsivePage.card(new java.awt.BorderLayout(12, 0));
+        searchCard.add(ResponsivePage.section("Find a user"), java.awt.BorderLayout.WEST);
+        searchCard.add(ResponsivePage.field("Search by email", txtEmail), java.awt.BorderLayout.CENTER);
+        javax.swing.JPanel body = new javax.swing.JPanel(new java.awt.BorderLayout(0, 12));
+        body.setOpaque(false);
+        body.add(searchCard, java.awt.BorderLayout.NORTH);
+        body.add(ResponsivePage.table(jTable1), java.awt.BorderLayout.CENTER);
+        page.add(body, java.awt.BorderLayout.CENTER);
+        ResponsivePage.install(this, page);
     }
     
     

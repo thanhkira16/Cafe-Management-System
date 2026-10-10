@@ -18,6 +18,17 @@ import java.util.Date;
 import java.util.Iterator;
 import javax.swing.JOptionPane;
 import javax.swing.table.TableModel;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.GridLayout;
+import javax.swing.BorderFactory;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import model.Bill;
 import model.Category;
 import common.OpenPdf;
@@ -41,6 +52,7 @@ public class PlaceOrder extends javax.swing.JFrame {
      */
     public PlaceOrder() {
         initComponents();
+        applyResponsiveLayout();
         
     }
     
@@ -61,6 +73,7 @@ public class PlaceOrder extends javax.swing.JFrame {
     
     public PlaceOrder(String email) {
         initComponents();
+        applyResponsiveLayout();
         txtProName.setEnabled(false);
         txtProPrice.setEnabled(false);
         txtProTotal.setEnabled(false);
@@ -70,6 +83,99 @@ public class PlaceOrder extends javax.swing.JFrame {
         tf.setEditable(false);
         userEmail = email;
         
+    }
+
+    private void applyResponsiveLayout() {
+        JPanel page = ResponsivePage.root("Place an order", "Add customer details, choose drinks, and prepare the bill.");
+
+        JPanel customer = ResponsivePage.card();
+        JPanel customerTop = new JPanel(new BorderLayout());
+        customerTop.setOpaque(false);
+        customerTop.add(ResponsivePage.section("Customer details"), BorderLayout.WEST);
+        JPanel bill = new JPanel(new BorderLayout(6, 0));
+        bill.setOpaque(true);
+        bill.setBackground(new Color(248, 245, 239));
+        bill.setBorder(BorderFactory.createEmptyBorder(7, 10, 7, 10));
+        JLabel billLabel = new JLabel("BILL #");
+        billLabel.setFont(new Font("Segoe UI", Font.BOLD, 11));
+        billLabel.setForeground(UiTheme.MUTED);
+        lblBillID.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        lblBillID.setForeground(UiTheme.COFFEE);
+        bill.add(billLabel, BorderLayout.WEST);
+        bill.add(lblBillID, BorderLayout.EAST);
+        customerTop.add(bill, BorderLayout.EAST);
+        customer.add(customerTop, BorderLayout.NORTH);
+        JPanel customerFields = new JPanel(new GridLayout(3, 1, 0, 12));
+        customerFields.setOpaque(false);
+        customerFields.add(ResponsivePage.field("Customer name", txtCustomerName));
+        customerFields.add(ResponsivePage.field("Mobile number", txtMobile));
+        customerFields.add(ResponsivePage.field("Email address", txtEmail));
+        customer.add(customerFields, BorderLayout.CENTER);
+
+        JPanel catalog = ResponsivePage.card(new BorderLayout(0, 10));
+        catalog.add(ResponsivePage.section("Drink menu"), BorderLayout.NORTH);
+        JPanel catalogFilters = new JPanel(new GridLayout(2, 1, 0, 9));
+        catalogFilters.setOpaque(false);
+        catalogFilters.add(ResponsivePage.field("Category", txtCategory));
+        catalogFilters.add(ResponsivePage.field("Search menu", txtSearch));
+        JPanel catalogCenter = new JPanel(new BorderLayout(0, 10));
+        catalogCenter.setOpaque(false);
+        catalogCenter.add(catalogFilters, BorderLayout.NORTH);
+        catalogCenter.add(ResponsivePage.table(jTable1), BorderLayout.CENTER);
+        catalog.add(catalogCenter, BorderLayout.CENTER);
+
+        JPanel order = ResponsivePage.card(new BorderLayout(0, 12));
+        order.add(ResponsivePage.section("Current order"), BorderLayout.NORTH);
+        JPanel orderBody = new JPanel(new BorderLayout(0, 10));
+        orderBody.setOpaque(false);
+        JPanel productFields = new JPanel(new GridLayout(2, 2, 10, 9));
+        productFields.setOpaque(false);
+        productFields.add(ResponsivePage.field("Selected drink", txtProName));
+        productFields.add(ResponsivePage.field("Unit price", txtProPrice));
+        productFields.add(ResponsivePage.field("Quantity", jSpinner1));
+        productFields.add(ResponsivePage.field("Line total", txtProTotal));
+        JPanel productActions = new JPanel(new BorderLayout(8, 0));
+        productActions.setOpaque(false);
+        UiTheme.secondaryButton(btnClear);
+        UiTheme.primaryButton(btnAddToCart);
+        productActions.add(btnClear, BorderLayout.WEST);
+        productActions.add(btnAddToCart, BorderLayout.EAST);
+        JPanel productEditor = new JPanel(new BorderLayout(0, 10));
+        productEditor.setOpaque(false);
+        productEditor.add(productFields, BorderLayout.CENTER);
+        productEditor.add(productActions, BorderLayout.SOUTH);
+        orderBody.add(productEditor, BorderLayout.NORTH);
+        orderBody.add(ResponsivePage.table(jTable2), BorderLayout.CENTER);
+        order.add(orderBody, BorderLayout.CENTER);
+
+        JPanel totalBar = new JPanel(new BorderLayout(12, 0));
+        totalBar.setOpaque(false);
+        JPanel total = new JPanel(new BorderLayout(8, 0));
+        total.setOpaque(false);
+        JLabel totalCaption = new JLabel("GRAND TOTAL");
+        totalCaption.setFont(new Font("Segoe UI", Font.BOLD, 11));
+        totalCaption.setForeground(UiTheme.MUTED);
+        lblGrandTotal.setFont(new Font("Segoe UI", Font.BOLD, 21));
+        lblGrandTotal.setForeground(UiTheme.COFFEE);
+        total.add(totalCaption, BorderLayout.NORTH);
+        total.add(lblGrandTotal, BorderLayout.CENTER);
+        UiTheme.primaryButton(btnGenerateBill);
+        totalBar.add(total, BorderLayout.WEST);
+        totalBar.add(btnGenerateBill, BorderLayout.EAST);
+        order.add(totalBar, BorderLayout.SOUTH);
+
+        JPanel body = new JPanel(new GridBagLayout());
+        body.setOpaque(false);
+        GridBagConstraints c = new GridBagConstraints();
+        c.gridy = 0;
+        c.fill = GridBagConstraints.BOTH;
+        c.weighty = 1;
+        c.insets = new Insets(0, 0, 0, 10);
+        c.gridx = 0; c.weightx = 0.23; body.add(customer, c);
+        c.gridx = 1; c.weightx = 0.27; body.add(catalog, c);
+        c.gridx = 2; c.weightx = 0.50; c.insets = new Insets(0, 0, 0, 0); body.add(order, c);
+        page.add(body, BorderLayout.CENTER);
+        ResponsivePage.install(this, page);
     }
     
     public void productNameByCategory(String category){
@@ -436,7 +542,7 @@ public class PlaceOrder extends javax.swing.JFrame {
           name, price, quality, productTotal
         });
         grandTotal += productTotal;
-        lblBillID.setText(grandTotal+"");
+        lblGrandTotal.setText(grandTotal+"");
          clearProductFields();
          validateFields();
     }//GEN-LAST:event_btnAddToCartActionPerformed
@@ -536,6 +642,7 @@ public class PlaceOrder extends javax.swing.JFrame {
             TableModel model = jTable2.getModel();
             String total = model.getValueAt(index, 3).toString();
             grandTotal -= Integer.parseInt(total);
+            lblGrandTotal.setText(grandTotal+"");
             lblGrandTotal.setText(grandTotal+"");
             ((DefaultTableModel) jTable2.getModel()).removeRow(index);
             

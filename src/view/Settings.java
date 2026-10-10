@@ -19,12 +19,35 @@ public class Settings extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         setShape(new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), 30, 30));
+        applyResponsiveLayout();
     }
     public Settings(String email) {
         initComponents();
         setLocationRelativeTo(null);
         setShape(new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), 30, 30));
         userEmail = email;
+        applyResponsiveLayout();
+    }
+
+    private void applyResponsiveLayout() {
+        javax.swing.JPanel page = ResponsivePage.root("Settings", "Manage your account security preferences.");
+        javax.swing.JPanel settingsCard = ResponsivePage.card(new java.awt.BorderLayout(0, 14));
+        settingsCard.setPreferredSize(new java.awt.Dimension(560, 300));
+        settingsCard.add(ResponsivePage.section("Account security"), java.awt.BorderLayout.NORTH);
+        javax.swing.JPanel actions = new javax.swing.JPanel(new java.awt.GridLayout(3, 1, 0, 12));
+        actions.setOpaque(false);
+        UiTheme.secondaryButton(jButton1);
+        UiTheme.secondaryButton(jButton2);
+        UiTheme.primaryButton(jButton3);
+        actions.add(jButton1);
+        actions.add(jButton2);
+        actions.add(jButton3);
+        settingsCard.add(actions, java.awt.BorderLayout.CENTER);
+        javax.swing.JPanel centered = new javax.swing.JPanel(new java.awt.GridBagLayout());
+        centered.setOpaque(false);
+        centered.add(settingsCard);
+        page.add(centered, java.awt.BorderLayout.CENTER);
+        ResponsivePage.install(this, page);
     }
 
     /**
