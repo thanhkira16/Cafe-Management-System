@@ -156,7 +156,7 @@ public class ManageCategory extends javax.swing.JFrame {
         category.setName(txtAddCategory.getText());
         CategoryDao.save(category);
         setVisible(false);
-        new ManageCategory().setVisible(true);
+        AppShell.open(new ManageCategory());
         
                 
     }//GEN-LAST:event_btnSaveActionPerformed
@@ -186,18 +186,18 @@ public class ManageCategory extends javax.swing.JFrame {
         if(a==0){
             CategoryDao.delete(id);
             setVisible(false);
-            new ManageCategory().setVisible(true);
+            AppShell.open(new ManageCategory());
         }
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        setVisible(false);
+        AppShell.back(this);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        setVisible(false);
+        AppShell.back(this);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

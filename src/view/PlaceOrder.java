@@ -21,6 +21,9 @@ import javax.swing.table.TableModel;
 import model.Bill;
 import model.Category;
 import common.OpenPdf;
+import dao.BillDao;
+import dao.CategoryDao;
+import dao.ProductDao;
 /**
  *
  * @author Admin
@@ -517,12 +520,12 @@ public class PlaceOrder extends javax.swing.JFrame {
         }
         doc.close();
         setVisible(false);
-        new PlaceOrder(createdBy).setVisible(true);
+        AppShell.open(new PlaceOrder(createdBy));
     }//GEN-LAST:event_btnGenerateBillActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        setVisible(false);
+        AppShell.back(this);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked

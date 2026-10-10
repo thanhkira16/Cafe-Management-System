@@ -185,7 +185,7 @@ public class ViewEditDeleteProduct extends javax.swing.JFrame {
         product.setPrice(txtPrice.getText());
         ProductDao.update(product);
         setVisible(false);
-        new ViewEditDeleteProduct().setVisible(true);
+        AppShell.open(new ViewEditDeleteProduct());
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
@@ -234,13 +234,13 @@ public class ViewEditDeleteProduct extends javax.swing.JFrame {
         if(a==0){
             ProductDao.delete(id);
             setVisible(true);
-            new ViewEditDeleteProduct().setVisible(true);
+            AppShell.open(new ViewEditDeleteProduct());
         }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        setVisible(false);
+        AppShell.back(this);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

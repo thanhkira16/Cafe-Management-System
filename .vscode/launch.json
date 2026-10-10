@@ -1,0 +1,17 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Cafe Management System",
+      "request": "launch",
+      "mainClass": "view.Login",
+      "projectName": "cafe-management-system",
+      "env": {
+        "CAFE_DB_URL": "jdbc:mysql://localhost:3306/cms?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Ho_Chi_Minh",
+        "CAFE_DB_USER": "root",
+        "CAFE_DB_PASSWORD": ""
+      }
+    }
+  ]
+}

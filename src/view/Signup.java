@@ -4,7 +4,7 @@
  */
 package view;
 
-import controller.Client;
+import dao.UserDao;
 import javax.swing.JOptionPane;
 import model.User;
 import java.awt.geom.RoundRectangle2D;
@@ -271,13 +271,9 @@ public class Signup extends javax.swing.JFrame {
             user.setSecurityQuestion(txtSecurityQuestion.getText());
             user.setAnswer(txtAnswer.getText());
 
-            // Gửi yêu cầu đăng ký tài khoản đến máy chủ qua socket
-            String request = "register," + user.getName() + "," + user.getEmail() + "," + user.getMobileNumber() + "," + user.getAddress() + ","
-                    + user.getPassword() + "," + user.getSecurityQuestion() + "," + user.getAnswer();
-            Client.socketHandle.write(request);
-
-            // Đóng tất cả các views hiện tại và mở view GAMENOTICE với thông báo "Đăng kí tài khoản, Đang chờ phản hồi"
-            Client.closeAllViews();
+            UserDao.save(user);
+            setVisible(false);
+            new Login().setVisible(true);
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(rootPane, ex.getMessage());
         }

@@ -1,9 +1,9 @@
 package view;
 
 import controller.Client;
+import dao.UserDao;
 import javax.swing.*;
-import java.awt.geom.RoundRectangle2D;
-import java.io.IOException;
+import java.awt.*;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -21,10 +21,121 @@ public class Login extends javax.swing.JFrame {
      * Creates new form Login
      */
     public Login() {
+        setUndecorated(false);
         initComponents();
-        setLocationRelativeTo(null);
-        setShape(new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), 30, 30));
+        applyModernLayout();
         btnLogin.setEnabled(false);
+    }
+
+    private void applyModernLayout() {
+        setTitle("Cafe Management System | Sign in");
+        setMinimumSize(new Dimension(900, 570));
+        setSize(980, 600);
+        getContentPane().removeAll();
+        getContentPane().setLayout(new GridLayout(1, 2));
+
+        JPanel brandPanel = new JPanel();
+        brandPanel.setBackground(UiTheme.INK);
+        brandPanel.setBorder(BorderFactory.createEmptyBorder(54, 48, 42, 42));
+        brandPanel.setLayout(new BoxLayout(brandPanel, BoxLayout.Y_AXIS));
+        JLabel brand = new JLabel("C  /  CAFE HOUSE");
+        brand.setFont(new Font("Segoe UI", Font.BOLD, 17));
+        brand.setForeground(new Color(226, 190, 151));
+        JLabel headline = new JLabel("<html>A better day,<br>one cup at a time.</html>");
+        headline.setFont(new Font("Georgia", Font.BOLD, 36));
+        headline.setForeground(Color.WHITE);
+        JLabel description = new JLabel("Your cafe, thoughtfully managed.");
+        description.setFont(new Font("Segoe UI", Font.PLAIN, 15));
+        description.setForeground(new Color(210, 201, 190));
+        JLabel accent = new JLabel("✳");
+        accent.setFont(new Font("Segoe UI Symbol", Font.PLAIN, 98));
+        accent.setForeground(UiTheme.CARAMEL);
+        JLabel note = new JLabel("ORDERS  ·  MENU  ·  DAILY SERVICE");
+        note.setFont(new Font("Segoe UI", Font.BOLD, 10));
+        note.setForeground(new Color(183, 171, 157));
+        brandPanel.add(brand);
+        brandPanel.add(Box.createVerticalStrut(72));
+        brandPanel.add(headline);
+        brandPanel.add(Box.createVerticalStrut(16));
+        brandPanel.add(description);
+        brandPanel.add(Box.createVerticalGlue());
+        accent.setAlignmentX(Component.LEFT_ALIGNMENT);
+        brandPanel.add(accent);
+        brandPanel.add(Box.createVerticalStrut(18));
+        brandPanel.add(note);
+
+        JPanel formPanel = new JPanel(new GridBagLayout());
+        formPanel.setBackground(UiTheme.CREAM);
+        JPanel form = new JPanel();
+        form.setBackground(UiTheme.CREAM);
+        form.setLayout(new BoxLayout(form, BoxLayout.Y_AXIS));
+        form.setBorder(BorderFactory.createEmptyBorder(34, 42, 34, 42));
+
+        jLabel1.setText("Welcome back");
+        jLabel1.setFont(new Font("Georgia", Font.BOLD, 30));
+        jLabel1.setForeground(UiTheme.INK);
+        jLabel2.setText("Email address");
+        jLabel3.setText("Password");
+        for (JLabel label : new JLabel[]{jLabel2, jLabel3}) {
+            label.setFont(new Font("Segoe UI", Font.BOLD, 13));
+            label.setForeground(UiTheme.INK);
+            label.setAlignmentX(Component.LEFT_ALIGNMENT);
+        }
+        jLabel1.setAlignmentX(Component.LEFT_ALIGNMENT);
+        txtEmail.setMaximumSize(new Dimension(Integer.MAX_VALUE, 46));
+        txtPassword.setMaximumSize(new Dimension(Integer.MAX_VALUE, 46));
+        UiTheme.input(txtEmail);
+        UiTheme.input(txtPassword);
+        btnLogin.setText("Sign in");
+        btnLogin.setIcon(null);
+        btnLogin.setAlignmentX(Component.LEFT_ALIGNMENT);
+        btnLogin.setMaximumSize(new Dimension(Integer.MAX_VALUE, 48));
+        UiTheme.primaryButton(btnLogin);
+        btnSignup.setText("Create account");
+        btnSignup.setIcon(null);
+        UiTheme.secondaryButton(btnSignup);
+        btnForgotPassword.setText("Forgot password?");
+        btnForgotPassword.setBorderPainted(false);
+        btnForgotPassword.setContentAreaFilled(false);
+        btnForgotPassword.setForeground(UiTheme.COFFEE);
+        btnForgotPassword.setFont(new Font("Segoe UI", Font.BOLD, 12));
+        btnExit.setVisible(false);
+
+        form.add(jLabel1);
+        form.add(Box.createVerticalStrut(10));
+        JLabel helper = new JLabel("Sign in to continue to your workspace.");
+        helper.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        helper.setForeground(UiTheme.MUTED);
+        helper.setAlignmentX(Component.LEFT_ALIGNMENT);
+        form.add(helper);
+        form.add(Box.createVerticalStrut(34));
+        form.add(jLabel2);
+        form.add(Box.createVerticalStrut(8));
+        form.add(txtEmail);
+        form.add(Box.createVerticalStrut(20));
+        form.add(jLabel3);
+        form.add(Box.createVerticalStrut(8));
+        form.add(txtPassword);
+        form.add(Box.createVerticalStrut(26));
+        form.add(btnLogin);
+        form.add(Box.createVerticalStrut(12));
+        JPanel links = new JPanel(new FlowLayout(FlowLayout.LEFT, 2, 0));
+        links.setOpaque(false);
+        links.add(btnSignup);
+        links.add(btnForgotPassword);
+        form.add(links);
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.weightx = 1;
+        formPanel.add(form, gbc);
+
+        getContentPane().add(brandPanel);
+        getContentPane().add(formPanel);
+        getContentPane().revalidate();
+        getContentPane().repaint();
+        setLocationRelativeTo(null);
     }
 
     public void validateFileds() {
@@ -65,7 +176,6 @@ public class Login extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("VNI-Dom", 1, 48)); // NOI18N
@@ -173,21 +283,16 @@ public class Login extends javax.swing.JFrame {
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         try {
             String email = txtEmail.getText();
-            String pass = encodePassword(txtPassword.getText());
-            Client.closeAllViews();
-            Client.socketHandle.write("client-verify,"+email+","+pass);
-//            User user = null;
-//            user = UserDao.login(email, pass);
-//            if (user == null) {
-//                JOptionPane.showMessageDialog(null, "Incorrect Password");
-//
-//            } else {
-//                setVisible(false);
-//                new Home(email).setVisible(true);
-//
-//            }
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+            model.User user = UserDao.login(email, txtPassword.getText());
+            if (user == null) {
+                showError("Incorrect email or password");
+                return;
+            }
+            setVisible(false);
+            dispose();
+            view.Home home = new view.Home(user.getStatus());
+            home.email = email;
+            AppShell.start(home, email, user.getStatus());
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(rootPane, ex.getMessage());
         }

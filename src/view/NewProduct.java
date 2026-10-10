@@ -158,7 +158,7 @@ public class NewProduct extends javax.swing.JFrame {
         product.setPrice(txtPrice.getText());
         ProductDao.save(product);
         setVisible(false);
-        new NewProduct().setVisible(true);
+        AppShell.open(new NewProduct());
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
@@ -192,12 +192,12 @@ public class NewProduct extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        setVisible(false);
+        AppShell.back(this);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        setVisible(false);
+        AppShell.back(this);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void txtCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCategoryActionPerformed

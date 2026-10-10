@@ -1,37 +1,58 @@
-# Cafe-Management-System
- Coffee Management System
-User Authentication and Authorization:
-Set up a login page to authenticate users.
-Set up a  sign up account page and a forgot password page
-Define user roles and permissions (admin, managermanager)
+# Cafe Management System
 
-![alt text](https://scontent.fdad1-4.fna.fbcdn.net/v/t39.30808-6/391750168_299922736159394_5662006445987347249_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=5f2048&_nc_ohc=rgqeE3QdELsAX-gIXqy&_nc_oc=AQmXa39KblT8SbgTzySU7zsWR1-VspTHbd_pcE8JSAUre3eo3MDrm4U3tEZAw7NjYap1_W2uM--X9kXhe_rspgb6&_nc_ht=scontent.fdad1-4.fna&oh=00_AfA90a2n-H3K0sLlwzYpZ7P7_EA5uHrz-DkmddupIutE7Q&oe=6532CB42)
+Ứng dụng desktop Java Swing quản lý danh mục, sản phẩm, người dùng và hóa đơn. Dự án có thể mở trực tiếp bằng VS Code; cấu hình NetBeans cũ được giữ lại để tham khảo.
 
+## Yêu cầu
 
+- JDK 17 trở lên
+- Apache Maven 3.8 trở lên
+- MySQL 8.x đang chạy
+- VS Code với Extension Pack for Java
 
-Menu Management:
-Create a menu page that lists all the items available in the coffee shop.
-Add options for managing menu items (add, edit, delete).
-Categorize menu items (Tea, freeze, milk, others).
-Define prices for each item.
-![alt text](https://scontent.fdad1-4.fna.fbcdn.net/v/t39.30808-6/391759800_299922049492796_6935731080310777744_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=5f2048&_nc_ohc=IdPBQugBkPMAX_WBDJO&_nc_ht=scontent.fdad1-4.fna&oh=00_AfAmmb7axZ-0g1TGXIQBHeu-riRqNQuGWis-YPhBVNZZmA&oe=65327532)
+## Cài đặt cơ sở dữ liệu và dữ liệu mẫu
 
+Từ thư mục dự án, chạy trong PowerShell (đổi `root` nếu tài khoản MySQL của bạn khác):
 
-	
-Order Management:
-Set up an ordering page that allows users to place orders.
-Allow customers to customize their orders (milk, sugar, size, etc.).
-Provide an order tracking system.
-Provide an generate bill system
-![alt text](https://scontent.fdad1-4.fna.fbcdn.net/v/t39.30808-6/391680837_299922032826131_7075534341168903268_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=5f2048&_nc_ohc=_UMMLqH7p-IAX8dytUm&_nc_ht=scontent.fdad1-4.fna&oh=00_AfA_FG2g1K43VhZCGleDgpvB-DhBlEys2Ooq0HuL30FGUg&oe=65324FA3)
+```powershell
+ Get-Content .\database\cafe_management.sql | mysql -u root -p
+```
 
+Script tạo database `cms`, các bảng cần thiết và dữ liệu mẫu gồm 5 danh mục, 25 món uống và 6 hóa đơn mẫu. Chạy lại script không nhân đôi danh mục/sản phẩm mẫu, hóa đơn mẫu hoặc tài khoản demo.
 
-![alt text](https://scontent.fdad1-4.fna.fbcdn.net/v/t39.30808-6/391678892_299922022826132_6252292039584342659_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=5f2048&_nc_ohc=ibbu73lzss0AX_VooNu&_nc_ht=scontent.fdad1-4.fna&oh=00_AfC13Ejpwq0N3LGk2HF7uKMRd6VRUda_XFYzIUBxLVG_kw&oe=6531F9FC)
+Tài khoản demo:
 
+- Email: `admin@cafe.local`
+- Mật khẩu: `admin123`
 
+Ứng dụng cũ lưu mật khẩu bằng MD5; tài khoản mẫu dùng cùng định dạng để tương thích.
 
-Setting account
-Allow change password
-Allow change security question
-![alt text](https://scontent.fdad2-1.fna.fbcdn.net/v/t39.30808-6/358143531_299921932826141_9155795309889079984_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=5f2048&_nc_ohc=4kDh8DP_4sAAX8Taqu8&_nc_ht=scontent.fdad2-1.fna&oh=00_AfBZZ9I7ubLz4u3txq_OEcDc8YTp9DWMfDlGM1PQwqCYzQ&oe=6531AAF6)
+## Chạy trong VS Code
 
+1. Mở thư mục dự án trong VS Code và cài **Extension Pack for Java**.
+2. Chờ Java/Maven tải các thư viện ở `pom.xml`.
+3. Chọn **Run and Debug** → **Cafe Management System**.
+
+Hoặc chạy từ terminal:
+
+```powershell
+mvn clean compile exec:java
+```
+
+Trong CMD hoặc PowerShell, chạy `run.cmd` (PowerShell dùng ` .\run.cmd`) ở thư mục dự án. File ưu tiên JDK 21 ở `C:\Program Files\Java\jdk-21`, kể cả khi `JAVA_HOME` đang trỏ tới phiên bản cũ, sau đó gọi Maven.
+
+## Cấu hình kết nối MySQL
+
+Cấu hình mặc định: `localhost:3306`, database `cms`, user `root`, mật khẩu trống. Có thể đặt biến môi trường trước khi khởi chạy:
+
+```powershell
+$env:CAFE_DB_URL = 'jdbc:mysql://localhost:3306/cms?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Ho_Chi_Minh'
+$env:CAFE_DB_USER = 'root'
+$env:CAFE_DB_PASSWORD = 'mat-khau-mysql'
+mvn clean compile exec:java
+```
+
+VS Code launch config nằm trong `.vscode/launch.json`; sửa các giá trị `env` ở đó nếu cần.
+
+## Ghi chú khôi phục
+
+Các lớp DAO đã được phục hồi từ lịch sử Git của dự án. Script SQL tái tạo schema theo các cột mà DAO/giao diện đang sử dụng. Đăng nhập và đăng ký dùng database trực tiếp; tài khoản đăng ký mới ở trạng thái chờ duyệt. Các tính năng chat/server thuộc source cũ vẫn cần server riêng nếu muốn sử dụng.

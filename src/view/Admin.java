@@ -5,6 +5,8 @@
 package view;
 
 import java.awt.geom.RoundRectangle2D;
+import java.awt.*;
+import javax.swing.*;
 
 /**
  *
@@ -16,16 +18,91 @@ public class Admin extends javax.swing.JFrame {
      * Creates new form Admin
      */
     public Admin() {
+        setUndecorated(false);
         initComponents();
-        setShape(new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), 30, 30));
+        applyModernLayout();
         setLocationRelativeTo(null);
     }
     
     public Admin(String userEmail) {
+        setUndecorated(false);
         initComponents();
-        setShape(new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), 30, 30));
+        applyModernLayout();
         setLocationRelativeTo(null);
         email = userEmail;
+    }
+
+    private void applyModernLayout() {
+        setTitle("Cafe House | Management");
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        setSize(860, 580);
+        getContentPane().removeAll();
+        getContentPane().setLayout(new BorderLayout());
+        getContentPane().setBackground(UiTheme.CREAM);
+
+        JPanel page = new JPanel(new BorderLayout(0, 24));
+        page.setBackground(UiTheme.CREAM);
+        page.setBorder(BorderFactory.createEmptyBorder(34, 42, 38, 42));
+        JPanel header = new JPanel();
+        header.setOpaque(false);
+        header.setLayout(new BoxLayout(header, BoxLayout.Y_AXIS));
+        JLabel eyebrow = new JLabel("CAFE HOUSE  /  WORKSPACE");
+        eyebrow.setFont(new Font("Segoe UI", Font.BOLD, 10));
+        eyebrow.setForeground(UiTheme.CARAMEL);
+        JLabel title = new JLabel("Manage your cafe");
+        title.setFont(new Font("Georgia", Font.BOLD, 30));
+        title.setForeground(UiTheme.INK);
+        JLabel subtitle = new JLabel("Keep the menu fresh and the team in sync.");
+        subtitle.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        subtitle.setForeground(UiTheme.MUTED);
+        header.add(eyebrow);
+        header.add(Box.createVerticalStrut(8));
+        header.add(title);
+        header.add(Box.createVerticalStrut(5));
+        header.add(subtitle);
+
+        JPanel actions = new JPanel(new GridLayout(2, 2, 14, 14));
+        actions.setOpaque(false);
+        styleManagementButton(jButton5, "New product", "Add an item to the menu");
+        styleManagementButton(jButton6, "Manage categories", "Organize the menu sections");
+        styleManagementButton(jButton7, "Edit products", "Update prices and product details");
+        styleManagementButton(jButton4, "Verify users", "Review staff access requests");
+        actions.add(jButton5);
+        actions.add(jButton6);
+        actions.add(jButton7);
+        actions.add(jButton4);
+
+        JPanel footer = new JPanel(new BorderLayout());
+        footer.setOpaque(false);
+        jButton1.setText("Back to dashboard");
+        jButton1.setIcon(null);
+        UiTheme.secondaryButton(jButton1);
+        footer.add(jButton1, BorderLayout.WEST);
+        JLabel brand = new JLabel("CAFE HOUSE");
+        brand.setFont(new Font("Segoe UI", Font.BOLD, 10));
+        brand.setForeground(UiTheme.MUTED);
+        footer.add(brand, BorderLayout.EAST);
+
+        page.add(header, BorderLayout.NORTH);
+        page.add(actions, BorderLayout.CENTER);
+        page.add(footer, BorderLayout.SOUTH);
+        getContentPane().add(page, BorderLayout.CENTER);
+        setLocationRelativeTo(null);
+    }
+
+    private void styleManagementButton(JButton button, String title, String description) {
+        button.setText("<html><div style='padding:8px 4px'><b style='font-size:15px'>" + title
+                + "</b><br><span style='color:#776f67;font-size:12px'>" + description + "</span></div></html>");
+        button.setHorizontalAlignment(SwingConstants.LEFT);
+        button.setIcon(null);
+        button.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        button.setForeground(UiTheme.INK);
+        button.setBackground(Color.WHITE);
+        button.setFocusPainted(false);
+        button.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(UiTheme.LINE), BorderFactory.createEmptyBorder(20, 20, 20, 20)));
+        button.setOpaque(true);
+        button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }
 
     /**
@@ -51,7 +128,6 @@ public class Admin extends javax.swing.JFrame {
         jLabel2.setText("jLabel2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jButton2.setText("jButton1");
@@ -114,27 +190,27 @@ public class Admin extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        setVisible(false);
+        AppShell.back(this);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
-        new NewProduct().setVisible(true);
+        AppShell.open(new NewProduct());
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
-        new ManageCategory().setVisible(true);
+        AppShell.open(new ManageCategory());
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
-        new ViewEditDeleteProduct().setVisible(true);
+        AppShell.open(new ViewEditDeleteProduct());
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-        new VerifyUser().setVisible(true);
+        AppShell.open(new VerifyUser());
     }//GEN-LAST:event_jButton4ActionPerformed
 
     /**

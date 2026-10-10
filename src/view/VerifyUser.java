@@ -130,7 +130,7 @@ public class VerifyUser extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        setVisible(false);
+        AppShell.back(this);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void txtEmailKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEmailKeyReleased
@@ -154,7 +154,7 @@ public class VerifyUser extends javax.swing.JFrame {
         if(a==0){
             UserDao.changeStatus(email, status);
             setVisible(false);
-            new VerifyUser().setVisible(true);
+            AppShell.open(new VerifyUser());
         }
     }//GEN-LAST:event_jTable1MouseClicked
 
