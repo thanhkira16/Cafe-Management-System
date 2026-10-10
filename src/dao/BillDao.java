@@ -32,31 +32,34 @@ public class BillDao {
        }
        
        public static ArrayList<Bill> getAllRecordsByAsc(String date){
-           ArrayList<Bill> list = new ArrayList<>();
-           try {
-              
-           } catch (Exception e) {
-               JOptionPane.showMessageDialog(null, e);
-                  
-           }
-           return list;
+           return getAllRecordsByDateAndOrder(date, "ASC");
        }
        
        public static ArrayList<Bill> getAllRecordsByDesc(String date){
+           return getAllRecordsByDateAndOrder(date, "DESC");
+       }
+
+       private static ArrayList<Bill> getAllRecordsByDateAndOrder(String date, String order){
            ArrayList<Bill> list = new ArrayList<>();
-           try {
-               
-               ResultSet rs = DbOperation.getData("select *from bill where date like '%"+date+"%' order By id DESC");
-               while(rs.next()){
-                  Bill bill = new Bill();
-               bill.setId(rs.getInt("id"));
-               bill.setName(rs.getString("name"));
-               bill.setEmail(rs.getString("email"));
-               bill.setMobileNumber(rs.getString("mobileNumber"));
-               bill.setDate(rs.getString("date"));
-               bill.setTotal(rs.getString("total"));
-               bill.setCreateBy(rs.getString("createdBy"));
-               list.add(bill);
+           // Keep ORDER BY restricted to the two directions exposed by this DAO.
+           String sortDirection = "ASC".equalsIgnoreCase(order) ? "ASC" : "DESC";
+           String query = "SELECT id, name, email, mobileNumber, date, total, createdBy "
+                   + "FROM bill WHERE date LIKE ? ORDER BY id " + sortDirection;
+           try (Connection connection = ConnectionProvider.getCon();
+                PreparedStatement statement = connection.prepareStatement(query)) {
+               statement.setString(1, "%" + (date == null ? "" : date.trim()) + "%");
+               try (ResultSet rs = statement.executeQuery()) {
+                   while (rs.next()) {
+                       Bill bill = new Bill();
+                       bill.setId(rs.getInt("id"));
+                       bill.setName(rs.getString("name"));
+                       bill.setEmail(rs.getString("email"));
+                       bill.setMobileNumber(rs.getString("mobileNumber"));
+                       bill.setDate(rs.getString("date"));
+                       bill.setTotal(rs.getString("total"));
+                       bill.setCreateBy(rs.getString("createdBy"));
+                       list.add(bill);
+                   }
                }
            } catch (Exception e) {
                JOptionPane.showMessageDialog(null, e);

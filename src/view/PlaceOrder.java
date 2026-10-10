@@ -88,7 +88,7 @@ public class PlaceOrder extends javax.swing.JFrame {
     private void applyResponsiveLayout() {
         JPanel page = ResponsivePage.root("Place an order", "Add customer details, choose drinks, and prepare the bill.");
 
-        JPanel customer = ResponsivePage.card();
+        JPanel customer = ResponsivePage.card(new BorderLayout(0, 12));
         JPanel customerTop = new JPanel(new BorderLayout());
         customerTop.setOpaque(false);
         customerTop.add(ResponsivePage.section("Customer details"), BorderLayout.WEST);
@@ -105,7 +105,7 @@ public class PlaceOrder extends javax.swing.JFrame {
         bill.add(lblBillID, BorderLayout.EAST);
         customerTop.add(bill, BorderLayout.EAST);
         customer.add(customerTop, BorderLayout.NORTH);
-        JPanel customerFields = new JPanel(new GridLayout(3, 1, 0, 12));
+        JPanel customerFields = new JPanel(new GridLayout(1, 3, 12, 0));
         customerFields.setOpaque(false);
         customerFields.add(ResponsivePage.field("Customer name", txtCustomerName));
         customerFields.add(ResponsivePage.field("Mobile number", txtMobile));
@@ -134,12 +134,17 @@ public class PlaceOrder extends javax.swing.JFrame {
         productFields.add(ResponsivePage.field("Unit price", txtProPrice));
         productFields.add(ResponsivePage.field("Quantity", jSpinner1));
         productFields.add(ResponsivePage.field("Line total", txtProTotal));
-        JPanel productActions = new JPanel(new BorderLayout(8, 0));
+        JPanel productActions = new JPanel(new GridLayout(1, 2, 8, 0));
         productActions.setOpaque(false);
+        btnClear.setText("Clear");
+        btnClear.setIcon(null);
+        btnAddToCart.setText("Add to cart");
+        btnAddToCart.setIcon(null);
+        btnAddToCart.setToolTipText("Select a drink from the menu before adding it");
         UiTheme.secondaryButton(btnClear);
         UiTheme.primaryButton(btnAddToCart);
-        productActions.add(btnClear, BorderLayout.WEST);
-        productActions.add(btnAddToCart, BorderLayout.EAST);
+        productActions.add(btnClear);
+        productActions.add(btnAddToCart);
         JPanel productEditor = new JPanel(new BorderLayout(0, 10));
         productEditor.setOpaque(false);
         productEditor.add(productFields, BorderLayout.CENTER);
@@ -159,21 +164,20 @@ public class PlaceOrder extends javax.swing.JFrame {
         lblGrandTotal.setForeground(UiTheme.COFFEE);
         total.add(totalCaption, BorderLayout.NORTH);
         total.add(lblGrandTotal, BorderLayout.CENTER);
+        btnGenerateBill.setIcon(null);
         UiTheme.primaryButton(btnGenerateBill);
         totalBar.add(total, BorderLayout.WEST);
         totalBar.add(btnGenerateBill, BorderLayout.EAST);
         order.add(totalBar, BorderLayout.SOUTH);
 
-        JPanel body = new JPanel(new GridBagLayout());
+        JPanel workArea = new JPanel(new GridLayout(1, 2, 12, 0));
+        workArea.setOpaque(false);
+        workArea.add(catalog);
+        workArea.add(order);
+        JPanel body = new JPanel(new BorderLayout(0, 12));
         body.setOpaque(false);
-        GridBagConstraints c = new GridBagConstraints();
-        c.gridy = 0;
-        c.fill = GridBagConstraints.BOTH;
-        c.weighty = 1;
-        c.insets = new Insets(0, 0, 0, 10);
-        c.gridx = 0; c.weightx = 0.23; body.add(customer, c);
-        c.gridx = 1; c.weightx = 0.27; body.add(catalog, c);
-        c.gridx = 2; c.weightx = 0.50; c.insets = new Insets(0, 0, 0, 0); body.add(order, c);
+        body.add(customer, BorderLayout.NORTH);
+        body.add(workArea, BorderLayout.CENTER);
         page.add(body, BorderLayout.CENTER);
         ResponsivePage.install(this, page);
     }

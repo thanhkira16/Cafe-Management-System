@@ -48,11 +48,11 @@ public class ViewBillOrderPlacedDetails extends javax.swing.JFrame {
     }
     
     public void tableDetails(){
-        String ascDec = jComboBox1.getSelectedItem().toString();
+        String ascDec = String.valueOf(jComboBox1.getSelectedItem()).trim();
          String date = txtDate.getText();
          DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
          model.setRowCount(0);
-        if(ascDec.equals("ASCENDING")){
+        if(ascDec.equalsIgnoreCase("ASCENDING")){
             ArrayList<Bill> list = BillDao.getAllRecordsByAsc(date);
             Iterator<Bill> itr = list.iterator();
             while(itr.hasNext()){
